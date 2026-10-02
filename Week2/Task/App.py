@@ -2,6 +2,119 @@ import streamlit as st
 from PIL import Image
 from Image_Captioning import generate_caption
 from database import save_result, load_results
+import pickle
+import tensorflow as tf
+from tensorflow.keras.preprocessing.sequence import pad_sequences
+import re
+
+
+MODEL_PATH = r"C:\Users\moham\Downloads\NLP_Cellula\NLP_Cellula_Internship\Week2\Task\LSTM\lstm_model.keras"
+TOKENIZER_PATH = r"C:\Users\moham\Downloads\NLP_Cellula\NLP_Cellula_Internship\Week2\Task\LSTM\tokenizer.pkl"
+LABEL_ENCODER_PATH = r"C:\Users\moham\Downloads\NLP_Cellula\NLP_Cellula_Internship\Week2\Task\LSTM\label_encoder.pkl"
+
+MAX_LEN = 28
+model = tf.keras.models.load_model(MODEL_PATH)
+
+with open(TOKENIZER_PATH, "rb") as f:
+    tokenizer = pickle.load(f)
+
+with open(LABEL_ENCODER_PATH, "rb") as f:
+    label_encoder = pickle.load(f)
+
+def Basic_clean_text(
+    text,
+    lowercase=True,
+    remove_html=True,
+    remove_urls=True,
+    remove_emails=True,
+    remove_mentions=True,
+    remove_hashtags=True,
+    remove_numbers=False,
+    remove_punctuation=True,
+    remove_extra_spaces=True,
+    remove_newlines=True,
+    remove_control_chars=True,
+    normalize_repeated_chars=False,
+    min_repeated_chars=3
+):
+    if text is None:
+        return ""
+
+    if not isinstance(text, str):
+        text = str(text)
+
+    if remove_html:
+        text = re.sub(r"<[^>]+>", " ", text)
+
+    if remove_urls:
+        text = re.sub(r"https?://\S+|www\.\S+", " ", text)
+
+    if remove_emails:
+        text = re.sub(
+            r"\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}\b",
+            " ",
+            text
+        )
+
+    if remove_mentions:
+        text = re.sub(r"(?<!\w)@\w+", " ", text)
+
+    if remove_hashtags:
+        text = re.sub(r"(?<!\w)#\w+", " ", text)
+    else:
+        text = re.sub(r"#(\w+)", r"\1", text)
+
+    if remove_numbers:
+        text = re.sub(r"\d+", " ", text)
+
+    if normalize_repeated_chars:
+        pattern = rf"(.)\1{{{min_repeated_chars},}}"
+        text = re.sub(pattern, r"\1", text)
+
+    if remove_punctuation:
+        text = re.sub(r"[^\w\s]", " ", text, flags=re.UNICODE)
+
+    if remove_newlines:
+        text = re.sub(r"[\r\n\t]+", " ", text)
+
+    if lowercase:
+        text = text.lower()
+
+    if remove_extra_spaces:
+        text = re.sub(r"\s+", " ", text)
+
+    return text.strip()
+
+def predict_text(text):
+
+    # 1. Clean
+    cleaned_text = Basic_clean_text(text)
+
+    # 2. Convert text → integer sequence
+    sequence = tokenizer.texts_to_sequences([cleaned_text])
+
+    # 3. Pad sequence
+    padded = pad_sequences(
+        sequence,
+        maxlen=MAX_LEN,
+        padding="post",
+        truncating="post"
+    )
+
+    # 4. Predict
+    probabilities = model.predict(padded, verbose=0)
+
+    # 5. Get class index
+    predicted_index = probabilities.argmax(axis=1)[0]
+
+    # 6. Convert index → class name
+    predicted_label = label_encoder.inverse_transform(
+        [predicted_index]
+    )[0]
+
+    confidence = probabilities[0][predicted_index]
+
+    return predicted_label, confidence
 
 st.set_page_config(
     page_title="Text & Image Classification",
@@ -46,16 +159,16 @@ with text_tab:
 
     if st.button("🔍 Classify Text", use_container_width=True):
         if text.strip():
-            with st.spinner("Classifying text..."):
 
-                prediction = "hello"
-                # prediction = classify_text(text)
+            with st.spinner("Classifying text..."):
+                prediction, confidence = predict_text(text)
 
             save_result("Text", text, prediction)
 
             st.success("Classification completed!")
             st.markdown("### Prediction")
             st.info(prediction)
+            st.metric("Confidence", f"{confidence:.2%}")
 
         else:
             st.warning("Please enter some text first.")
@@ -91,11 +204,7 @@ with image_tab:
             if st.button("🔍 Classify Caption", use_container_width=True):
 
                 with st.spinner("Classifying caption..."):
-
-                    prediction = "hello"
-                    # prediction = classify_text(
-                    #     st.session_state.caption
-                    # )
+                    prediction, confidence = predict_text(st.session_state.caption)
 
                 save_result(
                     "Image Caption",
@@ -106,6 +215,7 @@ with image_tab:
                 st.success("Classification completed!")
                 st.markdown("### 🎯 Prediction")
                 st.success(prediction)
+                st.metric("Confidence", f"{confidence:.2%}")
 
     else:
         st.info("👆 Upload an image to start.")

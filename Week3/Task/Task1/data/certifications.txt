@@ -1,0 +1,43 @@
+CERTIFICATIONS, DIPLOMAS & TRAINING PROGRAMS
+
+Agentic AI Track — Digital Egypt Pioneers Initiative (DEPI), Round 5
+Dates: 07/2026 – Present
+Status: Ongoing, according to CV
+- Six-month program covering Transformers, Generative AI, Prompting & Reasoning, Agentic AI, Multi-Agent Systems, RAG, and Memory Systems.
+- Includes hands-on development of AI agents, deployment, and real-world applications.
+
+Computer Vision Training — National Telecommunication Institute (NTI)
+Dates: 08/2025 – 09/2025
+Status: Completed
+- Hands-on training in Computer Vision and Deep Learning.
+- Practical tasks and a final project applying computer vision techniques.
+
+Data Science & AI Track — Digital Egypt Pioneers Initiative (DEPI), Round 2
+Dates: 10/2024 – 06/2025
+Status: Completed
+- Six-month program covering Python, SQL, data analysis, visualization, and machine learning.
+- Built multiple projects, including a final capstone applying end-to-end data science workflows.
+
+AI & Machine Learning Diploma — AMIT Learning
+Dates: 07/2024 – 02/2025
+Status: Completed
+- Seven-month diploma covering machine learning, deep learning, NLP, and computer vision.
+- Completed hands-on projects using real-world datasets and AI pipelines.
+
+AWARDS & COMPETITIONS
+
+2nd Place — AZEX 2026 Software Track
+Date: 05/2026
+
+3rd Place — GRC 2025 Computer Vision & Robotics
+Date: 05/2025
+
+1st Place — AZEX 2025 Computer Vision & Embedded Systems
+Date: 05/2025
+
+3rd Place — FCIS 2025 Machine Learning Contest
+Date: 06/2025
+
+Additional project competition achievements listed in the CV:
+- Video Game Sales Prediction — 3rd place in a university competition.
+- Sign Language Translator — 1st and 3rd place in two separate competitions hosted by different universities.

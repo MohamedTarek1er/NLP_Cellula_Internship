@@ -1,0 +1,97 @@
+PROGRAMMING LANGUAGES
+- Python
+- C++
+- Familiar with: C, C#, JavaScript, TypeScript
+- SQL (also listed under data analysis in the CV)
+
+AI / MACHINE LEARNING
+- Artificial Intelligence (AI)
+- Machine Learning
+- Deep Learning
+- Predictive Modeling
+- Feature Engineering
+- Statistical Analysis
+- Data Cleaning and Preprocessing
+- Exploratory Data Analysis (EDA)
+- Data Visualization
+- Transformers
+- Agentic AI
+- Multi-Agent Systems
+- Retrieval-Augmented Generation (RAG)
+- Prompt Engineering
+- Prompting and Reasoning
+- Memory Systems
+
+COMPUTER VISION
+- Computer Vision
+- YOLO
+- OpenCV
+- MediaPipe
+- Image classification
+- Object detection
+- Depth estimation (used in the iVision graduation project with MiDaS and Depth Anything)
+- OCR (PaddleOCR used in the iVision project)
+- Grad-CAM visualization
+
+NLP / LARGE LANGUAGE MODELS
+- Natural Language Processing (NLP)
+- Large Language Models (LLMs)
+- Text processing and tokenization
+- RNNs
+- LSTMs
+- GRU
+- Transformers
+- LangChain
+- LangGraph
+- AI agents and multi-agent systems
+- Retrieval-Augmented Generation (RAG)
+- Sentiment analysis
+- Prompt Engineering
+
+FRAMEWORKS / LIBRARIES
+- TensorFlow
+- PyTorch
+- Scikit-learn
+- YOLO
+- OpenCV
+- MediaPipe
+- LangChain
+- LangGraph
+- Pandas
+- NumPy
+- Matplotlib
+- Seaborn
+- Plotly
+
+DATABASES
+- SQLite
+
+DEPLOYMENT / APPLICATION TOOLS
+- Streamlit
+- NiceGUI
+- FastAPI
+- Docker
+- CI/CD
+- Tkinter
+- Android application deployment (offline mobile AI application described in the iVision graduation project)
+
+DATA ANALYSIS / BUSINESS INTELLIGENCE
+- SQL
+- Power BI
+- Data cleaning and preprocessing
+- Exploratory Data Analysis (EDA)
+- Feature engineering
+- Statistical analysis
+- Data visualization
+- Predictive modeling
+
+PROBLEM SOLVING
+- Data Structures and Algorithms
+- Competitive Programming
+
+SOFT SKILLS
+- Teamwork
+- Leadership
+- Communication
+- Adaptability
+- Time Management

@@ -9,7 +9,7 @@ print(f"Using device: {device}")
 
 processor = AutoProcessor.from_pretrained(MODEL_NAME)
 
-model = BlipForConditionalGeneration.from_pretrained( MODEL_NAME).to(device)
+model = BlipForConditionalGeneration.from_pretrained(MODEL_NAME).to(device)
 model.eval()
 
 def generate_caption(image):

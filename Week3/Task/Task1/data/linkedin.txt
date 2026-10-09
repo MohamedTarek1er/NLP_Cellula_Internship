@@ -1,0 +1,69 @@
+Mohamed Eleraky
+Headline: AI Engineer & Data Scientist
+
+LinkedIn: https://linkedin.com/in/mohamed-tarek-5a0364274/
+GitHub: https://github.com/MohamedTarek1er
+Email: mohamedeleraky1907@gmail.com
+Location: Cairo, Egypt
+
+ABOUT
+AI Engineer with hands-on experience in Machine Learning, Deep Learning, Computer Vision, Natural Language Processing (NLP), and Large Language Models (LLMs). Experienced in building end-to-end AI solutions, from data preparation and model development to deployment and real-world applications. Proven track record through internships, leadership roles, competitive achievements, and AI projects spanning computer vision, NLP, multi-agent systems, and predictive analytics. Focused on applying AI technologies to solve complex real-world problems and deliver impactful solutions.
+
+EDUCATION
+Bachelor of Computer and Information Science — Ain Shams University
+Dates: 10/2022 – 07/2026
+Location: Cairo, Egypt
+GPA: 3.5/4.0
+
+WORK EXPERIENCE
+NLP Intern — Cellula Technologies
+Dates: 09/2026 – Present | Remote
+- Working on NLP concepts including text processing, tokenization, RNNs, LSTMs, Transformers, and LLMs.
+- Building AI applications using LangChain, LangGraph, agents, and multi-agent systems.
+- Applying production tools including Docker, CI/CD, FastAPI, Streamlit, and SQLite.
+
+AI Instructor — Information Technology Institute (ITI)
+Dates: 08/2026 – 09/2026 | Cairo, Egypt
+- Delivered hands-on AI training to junior students, covering Python programming, Data Analysis, and Machine Learning fundamentals.
+- Guided students through practical exercises helping them develop AI concepts and problem-solving skills.
+
+Agentic AI Intern — Digital Hub × Orange Partnership
+Dates: 06/2026 – 08/2026 | Cairo, Egypt
+- Completed a 5-week internship focused on Transformers, Prompting & Reasoning, Agentic AI, Multi-Agent Systems, RAG, and Memory Systems.
+- Developed practical AI agent solutions in agent deployment, monitoring, and real-world applications.
+
+Computer Vision Intern — Cellula Technologies
+Dates: 02/2026 – 04/2026 | Remote
+- Enhancing and optimizing computer vision models for real-world applications.
+- Contributing to end-to-end computer vision pipelines to improve model performance, inference efficiency, and model deployment.
+
+AI Internship — CIB Bank
+Dates: 07/2025 – 08/2025 | Remote
+- Analyzed AI applications in the banking sector, focusing on predictive analytics and financial sustainability.
+- Explored AI use cases in financial services and enterprise systems to support informed decision-making.
+
+VOLUNTEERING
+Head of AI — RoboTech Student Activity
+Dates: 10/2025 – 07/2026 | Cairo, Egypt
+- Led an AI committee of 100+ members across 3 parallel levels, covering Python, Data Analysis, ML, DL, Computer Vision, and NLP.
+- Designed learning tracks, tasks, and workshops with hands-on projects and technical mentoring.
+- Supervised 24 AI/ML projects developed for the annual RoboTech Fair event.
+
+Python Judge — GRC Competition, British University in Egypt (BUE)
+Dates: 05/2026
+- Evaluated and scored participants' Python programming submissions during the competition.
+- Assessed solution correctness, efficiency, and code quality according to competition criteria.
+
+AI Roadmap Developer — FIRM Volunteer Initiative
+Dates: 03/2026 – 04/2026 | Remote
+- Developed a structured AI roadmap covering Python, Data Analysis, ML, DL, Computer Vision, and NLP.
+- Curated learning resources, practical workshops, notebooks, and projects for each track.
+
+AI Support & Judge — RoboTech Summer Training (Computer Vision)
+Dates: 07/2025 – 08/2025 | Cairo, Egypt
+- Supported a Computer Vision & IoT summer training program and assisted trainees in practical sessions.
+- Participated as a judge in evaluating final student projects, assessing system performance and integration.
+
+LANGUAGES
+Arabic — Native
+English — Fluent

@@ -87,13 +87,9 @@ def Basic_clean_text(
 
 def predict_text(text):
 
-    # 1. Clean
     cleaned_text = Basic_clean_text(text)
-
-    # 2. Convert text → integer sequence
     sequence = tokenizer.texts_to_sequences([cleaned_text])
 
-    # 3. Pad sequence
     padded = pad_sequences(
         sequence,
         maxlen=MAX_LEN,
@@ -101,16 +97,10 @@ def predict_text(text):
         truncating="post"
     )
 
-    # 4. Predict
     probabilities = model.predict(padded, verbose=0)
-
-    # 5. Get class index
     predicted_index = probabilities.argmax(axis=1)[0]
 
-    # 6. Convert index → class name
-    predicted_label = label_encoder.inverse_transform(
-        [predicted_index]
-    )[0]
+    predicted_label = label_encoder.inverse_transform([predicted_index])[0]
 
     confidence = probabilities[0][predicted_index]
 

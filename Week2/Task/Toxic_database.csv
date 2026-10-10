@@ -1,9 +1,4 @@
 input_type,input_text,classification
-Text,hello my name is mohamed,hello
-Image Caption,a man in a black coat and hat walks through a field,hello
-Text,lets go to school,hello
-Image Caption,a man is giving a presentation on a project,hello
-Image Caption,a young man holding a trophy and smiling,hello
 Text,A child playing in a sunny meadow.,Suicide & Self-Harm
 Text,People walking through a peaceful city street.,Suicide & Self-Harm
 Text,A masked person tampering with an ATM.,Non-Violent Crimes
@@ -12,3 +7,5 @@ Text,A masked person tampering with an ATM.,Non-Violent Crimes
 Image Caption,a man in a black coat and hat walking down a path,Non-Violent Crimes
 Text,Police tape across a crime scene at night.,Violent Crimes
 Image Caption,a picture of a colorful pattern with a green and blue pattern,unsafe
+Text,An emergency vehicle with flashing lights at a violent incident.,Violent Crimes
+Image Caption,two girls walking down the street in the foggy city stock images,Safe

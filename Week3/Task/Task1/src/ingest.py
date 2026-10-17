@@ -10,6 +10,7 @@ DATA_DIR = Path("data")
 VECTOR_DIR = "vector_store"
 
 def load_documents(data_dir=DATA_DIR):
+    
     documents = []
 
     for path in Path(data_dir).rglob("*"):

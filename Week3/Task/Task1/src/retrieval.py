@@ -17,6 +17,7 @@ def load_vector_store():
 
 
 def retrieve_documents(question, vector_db, k=4):
+    
     results = vector_db.similarity_search_with_score(
         question,
         k=k,

@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Voice Data Analyst</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f3f6fb;
+            color: #1e293b;
+        }
+
+        header {
+            background: #172554;
+            color: white;
+            padding: 24px;
+            text-align: center;
+        }
+
+        header h1 {
+            margin: 0 0 8px;
+        }
+
+        header p {
+            margin: 0;
+            color: #cbd5e1;
+        }
+
+        main {
+            max-width: 1000px;
+            margin: 28px auto;
+            padding: 0 18px;
+        }
+
+        .card {
+            background: white;
+            padding: 24px;
+            margin-bottom: 22px;
+            border-radius: 14px;
+            box-shadow: 0 4px 16px #0f172a0c;
+        }
+
+        h2 {
+            margin-top: 0;
+            font-size: 20px;
+        }
+
+        p.help {
+            color: #64748b;
+            font-size: 14px;
+        }
+
+        input[type="file"] {
+            display: block;
+            margin: 16px 0;
+            max-width: 100%;
+        }
+
+        button {
+            border: 0;
+            border-radius: 8px;
+            padding: 11px 16px;
+            margin: 5px 5px 5px 0;
+            background: #2563eb;
+            color: white;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        button:hover {
+            background: #1d4ed8;
+        }
+
+        button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        button.secondary {
+            background: #475569;
+        }
+
+        button.recording {
+            background: #dc2626;
+        }
+
+        textarea {
+            width: 100%;
+            min-height: 85px;
+            padding: 12px;
+            border: 1px solid #cbd5e1;
+            border-radius: 8px;
+            font: inherit;
+            resize: vertical;
+        }
+
+        pre {
+            background: #0f172a;
+            color: #e2e8f0;
+            padding: 16px;
+            border-radius: 8px;
+            white-space: pre-wrap;
+            overflow-wrap: anywhere;
+            overflow-x: auto;
+        }
+
+        .status {
+            padding: 12px;
+            border-radius: 8px;
+            margin-top: 14px;
+            background: #eff6ff;
+            color: #1d4ed8;
+            white-space: pre-wrap;
+            overflow-wrap: anywhere;
+        }
+
+        .status.error {
+            background: #fef2f2;
+            color: #b91c1c;
+        }
+
+        .status.success {
+            background: #f0fdf4;
+            color: #166534;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .table-wrap {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 14px;
+        }
+
+        th,
+        td {
+            border: 1px solid #e2e8f0;
+            padding: 10px;
+            text-align: left;
+        }
+
+        th {
+            background: #eff6ff;
+        }
+
+        .explanation {
+            line-height: 1.7;
+            white-space: pre-wrap;
+            overflow-wrap: anywhere;
+        }
+
+        footer {
+            text-align: center;
+            color: #64748b;
+            padding: 20px;
+            font-size: 13px;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>Voice Data Analyst</h1>
+        <p>Analyze your data using Arabic or English voice questions.</p>
+    </header>
+
+    <main>
+        <section class="card">
+            <h2>1. Upload Your Dataset</h2>
+            <p class="help">Supported formats: CSV and Excel (.xlsx).</p>
+
+            <input type="file" id="datasetFile" accept=".csv,.xlsx">
+
+            <button id="uploadButton" onclick="uploadDataset()">
+                Upload Dataset
+            </button>
+
+            <div id="datasetStatus" class="status">
+                No dataset uploaded in this session yet.
+            </div>
+        </section>
+
+        <section class="card">
+            <h2>2. Ask a Question</h2>
+            <p class="help">
+                Record your question or upload an existing audio file.
+                You can speak Arabic or English.
+            </p>
+
+            <button id="recordButton" onclick="startRecording()">
+                Start Recording
+            </button>
+
+            <button id="stopButton" class="secondary" onclick="stopRecording()" disabled>
+                Stop Recording
+            </button>
+
+            <p id="recordStatus" class="help">
+                Your microphone has not been activated.
+            </p>
+
+            <audio id="audioPreview" controls class="hidden"></audio>
+
+            <hr style="border: 0; border-top: 1px solid #e2e8f0; margin: 22px 0;">
+
+            <label for="audioFile"><strong>Or upload an audio file</strong></label>
+            <input type="file" id="audioFile" accept=".wav,.mp3,.m4a,.ogg,.flac,.webm,audio/*">
+
+            <button id="analyzeButton" onclick="analyzeVoice()">
+                Analyze Voice
+            </button>
+
+            <div id="analysisStatus" class="status">
+                Upload a dataset before analyzing your question.
+            </div>
+        </section>
+
+        <section id="resultsSection" class="card hidden">
+            <h2>3. Analysis Results</h2>
+
+            <h3>Recognized Question</h3>
+            <pre id="transcript"></pre>
+
+            <h3>Detected Language</h3>
+            <p id="language"></p>
+
+            <h3>Generated SQL</h3>
+            <pre id="sqlQuery"></pre>
+
+            <h3>Query Results</h3>
+            <p id="rowCount"></p>
+
+            <div class="table-wrap">
+                <table id="resultsTable"></table>
+            </div>
+
+            <h3>Explanation</h3>
+            <div id="explanation" class="explanation"></div>
+        </section>
+    </main>
+
+    <footer>
+        Voice-Based Data Analysis System · FastAPI · Faster-Whisper · SQLite
+    </footer>
+
+    <script>
+        let recordedAudio = null;
+        let mediaRecorder = null;
+        let microphoneStream = null;
+        let audioChunks = [];
+        let isRecording = false;
+        let isAnalyzing = false;
+        let datasetUploaded = false;
+
+        function showStatus(elementId, message, type = "") {
+            const element = document.getElementById(elementId);
+            element.textContent = message;
+            element.className = "status" + (type ? " " + type : "");
+        }
+
+        async function uploadDataset() {
+            const fileInput = document.getElementById("datasetFile");
+            const button = document.getElementById("uploadButton");
+
+            if (!fileInput.files.length) {
+                showStatus("datasetStatus", "Please select a CSV or XLSX file.", "error");
+                return;
+            }
+
+            const formData = new FormData();
+            formData.append("file", fileInput.files[0]);
+
+            button.disabled = true;
+            showStatus("datasetStatus", "Uploading and processing dataset...");
+
+            try {
+                const response = await fetch("/upload-dataset", {
+                    method: "POST",
+                    body: formData
+                });
+
+                const data = await response.json();
+
+                if (!response.ok) {
+                    throw new Error(data.detail || "Dataset upload failed.");
+                }
+
+                datasetUploaded = true;
+
+                showStatus(
+                    "datasetStatus",
+                    "Dataset uploaded successfully!\n" +
+                    "File: " + data.filename + "\n" +
+                    "Rows: " + data.rows + "\n" +
+                    "Columns: " + data.columns.join(", "),
+                    "success"
+                );
+
+                document.getElementById("analysisStatus").textContent =
+                    "Your dataset is ready. Record or upload a question.";
+
+            } catch (error) {
+                showStatus("datasetStatus", error.message, "error");
+            } finally {
+                button.disabled = false;
+            }
+        }
+
+        async function startRecording() {
+            if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+                showStatus(
+                    "recordStatus",
+                    "Microphone recording is unavailable in this browser or context. Try localhost or upload an audio file.",
+                    "error"
+                );
+                return;
+            }
+
+            if (isRecording || isAnalyzing) return;
+
+            try {
+                microphoneStream = await navigator.mediaDevices.getUserMedia({
+                    audio: true
+                });
+
+                audioChunks = [];
+
+                const options = {};
+
+                if (MediaRecorder.isTypeSupported("audio/webm;codecs=opus")) {
+                    options.mimeType = "audio/webm;codecs=opus";
+                }
+
+                mediaRecorder = new MediaRecorder(microphoneStream, options);
+
+                mediaRecorder.ondataavailable = (event) => {
+                    if (event.data.size > 0) {
+                        audioChunks.push(event.data);
+                    }
+                };
+
+                mediaRecorder.onstop = () => {
+                    const mimeType = mediaRecorder.mimeType || "audio/webm";
+
+                    recordedAudio = new Blob(audioChunks, {
+                        type: mimeType
+                    });
+
+                    const audioUrl = URL.createObjectURL(recordedAudio);
+                    const preview = document.getElementById("audioPreview");
+
+                    preview.src = audioUrl;
+                    preview.classList.remove("hidden");
+
+                    document.getElementById("audioFile").value = "";
+
+                    showStatus(
+                        "recordStatus",
+                        "Recording ready. Click Analyze Voice to process it.",
+                        "success"
+                    );
+
+                    microphoneStream.getTracks().forEach(track => track.stop());
+                    microphoneStream = null;
+                    mediaRecorder = null;
+                    isRecording = false;
+
+                    document.getElementById("recordButton").disabled = false;
+                    document.getElementById("recordButton").classList.remove("recording");
+                    document.getElementById("stopButton").disabled = true;
+                };
+
+                mediaRecorder.start();
+                isRecording = true;
+
+                document.getElementById("recordButton").disabled = true;
+                document.getElementById("recordButton").classList.add("recording");
+                document.getElementById("stopButton").disabled = false;
+
+                showStatus(
+                    "recordStatus",
+                    "Recording... Speak clearly in Arabic or English."
+                );
+
+            } catch (error) {
+                if (microphoneStream) {
+                    microphoneStream.getTracks().forEach(track => track.stop());
+                    microphoneStream = null;
+                }
+
+                showStatus(
+                    "recordStatus",
+                    "Could not access the microphone. Check your browser permissions or upload an audio file instead.",
+                    "error"
+                );
+            }
+        }
+
+        function stopRecording() {
+            if (mediaRecorder && isRecording && mediaRecorder.state !== "inactive") {
+                mediaRecorder.stop();
+            }
+        }
+
+        async function analyzeVoice() {
+            if (isAnalyzing) return;
+
+            if (!datasetUploaded) {
+                showStatus(
+                    "analysisStatus",
+                    "Please upload a dataset first.",
+                    "error"
+                );
+                return;
+            }
+
+            if (isRecording) {
+                showStatus(
+                    "analysisStatus",
+                    "Stop the recording before analyzing it.",
+                    "error"
+                );
+                return;
+            }
+
+            const audioInput = document.getElementById("audioFile");
+            const selectedFile = audioInput.files[0];
+
+            if (!selectedFile && !recordedAudio) {
+                showStatus(
+                    "analysisStatus",
+                    "Please record a question or select an audio file.",
+                    "error"
+                );
+                return;
+            }
+
+            const formData = new FormData();
+
+            if (selectedFile) {
+                formData.append("file", selectedFile);
+            } else {
+                const extension = recordedAudio.type.includes("webm") ? "webm" : "ogg";
+
+                formData.append(
+                    "file",
+                    recordedAudio,
+                    "recording." + extension
+                );
+            }
+
+            isAnalyzing = true;
+            document.getElementById("analyzeButton").disabled = true;
+            showStatus(
+                "analysisStatus",
+                "Analyzing your question. This may take a little while..."
+            );
+
+            document.getElementById("resultsSection").classList.add("hidden");
+
+            try {
+                const response = await fetch("/analyze-voice", {
+                    method: "POST",
+                    body: formData
+                });
+
+                const data = await response.json();
+
+                if (!response.ok) {
+                    throw new Error(data.detail || "Voice analysis failed.");
+                }
+
+                document.getElementById("transcript").textContent =
+                    data.transcript || "";
+
+                document.getElementById("language").textContent =
+                    data.language || "Unknown";
+
+                document.getElementById("sqlQuery").textContent =
+                    data.sql_query || "";
+
+                document.getElementById("rowCount").textContent =
+                    "Rows returned: " + data.row_count +
+                    (data.truncated ? " (display limited to 1,000 rows)." : "");
+
+                document.getElementById("explanation").textContent =
+                    data.explanation || "No explanation was returned.";
+
+                renderResultsTable(data.columns || [], data.rows || []);
+
+                document.getElementById("resultsSection").classList.remove("hidden");
+
+                showStatus(
+                    "analysisStatus",
+                    "Analysis completed successfully!",
+                    "success"
+                );
+
+            } catch (error) {
+                showStatus("analysisStatus", error.message, "error");
+            } finally {
+                isAnalyzing = false;
+                document.getElementById("analyzeButton").disabled = false;
+            }
+        }
+
+        function renderResultsTable(columns, rows) {
+            const table = document.getElementById("resultsTable");
+            table.replaceChildren();
+
+            const thead = document.createElement("thead");
+            const headerRow = document.createElement("tr");
+
+            columns.forEach(column => {
+                const th = document.createElement("th");
+                th.textContent = column;
+                headerRow.appendChild(th);
+            });
+
+            thead.appendChild(headerRow);
+            table.appendChild(thead);
+
+            const tbody = document.createElement("tbody");
+
+            rows.forEach(row => {
+                const tr = document.createElement("tr");
+
+                columns.forEach(column => {
+                    const td = document.createElement("td");
+                    const value = row[column];
+
+                    td.textContent = value === null || value === undefined
+                        ? ""
+                        : String(value);
+
+                    tr.appendChild(td);
+                });
+
+                tbody.appendChild(tr);
+            });
+
+            if (rows.length === 0) {
+                const tr = document.createElement("tr");
+                const td = document.createElement("td");
+
+                td.colSpan = Math.max(columns.length, 1);
+                td.textContent = "No rows matched your query.";
+
+                tr.appendChild(td);
+                tbody.appendChild(tr);
+            }
+
+            table.appendChild(tbody);
+        }
+    </script>
+</body>
+
+</html>

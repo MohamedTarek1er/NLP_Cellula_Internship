@@ -1,7 +1,0 @@
-.env
-.venv/
-__pycache__/
-*.py[cod]
-.pytest_cache/
-data/chroma_db/
-data/conversation_memory.db
